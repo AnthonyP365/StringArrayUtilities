@@ -1,6 +1,10 @@
 package com.zipcodewilmington;
 
+import org.codehaus.plexus.util.StringUtils;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by leon on 1/29/18.
@@ -110,7 +114,8 @@ public class StringArrayUtils {
      * @return number of occurrences the specified `value` has occurred
      */ // TODO
     public static int getNumberOfOccurrences(String[] array, String value) {
-        return 0;
+        String arr = Arrays.toString(array);
+        return StringUtils.countMatches(arr, value);
     }
 
     /**
@@ -119,6 +124,15 @@ public class StringArrayUtils {
      * @return array with identical contents excluding values of `value`
      */ // TODO
     public static String[] removeValue(String[] array, String valueToRemove) {
+        List<String> myArr = Arrays.asList(array);
+
+        myArr.remove(valueToRemove);
+
+        
+
+        String[] newArr = new String[num];
+
+
         return null;
     }
 
