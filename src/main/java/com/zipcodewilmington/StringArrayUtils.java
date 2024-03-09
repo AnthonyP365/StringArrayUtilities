@@ -2,9 +2,7 @@ package com.zipcodewilmington;
 
 import org.codehaus.plexus.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by leon on 1/29/18.
@@ -32,7 +30,7 @@ public class StringArrayUtils {
      * @return last element in specified array
      */ // TODO
     public static String getLastElement(String[] array) {
-        String lastElement = array[array.length-1];
+        String lastElement = array[array.length - 1];
         return lastElement;
     }
 
@@ -41,7 +39,7 @@ public class StringArrayUtils {
      * @return second to last element in specified array
      */ // TODO
     public static String getSecondToLastElement(String[] array) {
-        String secondLastElement = array[array.length-2];
+        String secondLastElement = array[array.length - 2];
         return secondLastElement;
     }
 
@@ -67,7 +65,7 @@ public class StringArrayUtils {
         String[] revArray = new String[array.length];
 
         for (int i = 0; i < array.length; i++) {
-            revArray[i] = array[array.length-1-i];
+            revArray[i] = array[array.length - 1 - i];
         }
         return revArray;
     }
@@ -78,7 +76,7 @@ public class StringArrayUtils {
      */ // TODO
     public static boolean isPalindromic(String[] array) {
         int a = 0;
-        int b = array.length-1;
+        int b = array.length - 1;
 
         while (a < b) {
             if (array[a] == array[b]) {
@@ -124,16 +122,13 @@ public class StringArrayUtils {
      * @return array with identical contents excluding values of `value`
      */ // TODO
     public static String[] removeValue(String[] array, String valueToRemove) {
-        List<String> myArr = Arrays.asList(array);
+        List<String> arrayList = new ArrayList<>(Arrays.asList(array));
 
-        myArr.remove(valueToRemove);
+        arrayList.remove(valueToRemove);
 
-        
+        String[] newArray = arrayList.toArray(new String[array.length - 1]);
 
-        String[] newArr = new String[num];
-
-
-        return null;
+        return newArray;
     }
 
     /**
@@ -141,7 +136,15 @@ public class StringArrayUtils {
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        return null;
+        List<String> arrayList = new ArrayList<>(Arrays.asList(array));
+
+        for (int i = arrayList.size() - 1; i > 0; i--) {
+            if (arrayList.get(i).equals(arrayList.get(i - 1))) {
+                arrayList.remove(i);
+            }
+        }
+
+        return arrayList.toArray(new String[0]);
     }
 
     /**
@@ -149,8 +152,25 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
+        List<String> newArrList = new ArrayList<>();
+
+        if (array.length > 0) {
+            StringBuilder tempGroup = new StringBuilder(array[0]);
+
+            for (int i = 1; i < array.length; i++) {
+                if (array[i].equals(array[i-1])) {
+                    tempGroup.append(array[i]);
+                } else {
+                    newArrList.add(tempGroup.toString());
+                    tempGroup = new StringBuilder(array[i]);
+                }
+            }
+            newArrList.add(tempGroup.toString());
+        }
+
+        return newArrList.toArray(new String[0]);
     }
-
-
 }
+
+
+
